@@ -1,0 +1,65 @@
+[
+    {
+        "drugUrl": "asset/images/paracetamol-drop.png",
+        "drugName": "Paracetamol Drops",
+        "drugDesc": "Paracetamol - 15ml",
+        "amount": 450,
+        "soldBy": "Emzor Pharmaceuticals",
+        "constituents": "pain relief",
+        "packSize": "1*1"
+    },
+    {
+        "drugUrl": "asset/images/emmox.png",
+        "drugName": "Emmox",
+        "drugDesc": "Amoxicillin - 500mg",
+        "amount": 450,
+        "soldBy": "Emzor Pharmaceuticals",
+        "constituents": "Amoxicillin",
+        "packSize": "10*10"
+    },
+    {
+        "drugUrl": "asset/images/garlic-pack.png",
+        "drugName": "Garlic Oil",
+        "drugDesc": "Soft Gel - 650mg",
+        "amount": 450,
+        "soldBy": "Emzor Pharmaceuticals",
+        "constituents": "Garlic Oil",
+        "packSize": "1*1"
+    },
+    {
+        "drugUrl": "asset/images/lokmal-tablet.png",
+        "drugName": "Lokmal Tablet",
+        "drugDesc": "20mg Artemether + 120mg Lumefantrine",
+        "amount": 450,
+        "soldBy": "Emzor Pharmaceuticals",
+        "constituents": "Anti - Malarial",
+        "packSize": "4*6"
+    },
+    {
+        "drugUrl": "asset/images/lokmal-pack.png",
+        "drugName": "Lokmal Suspension",
+        "drugDesc": "20mg Artemether + 120mg Lumefantrine",
+        "amount": 450,
+        "soldBy": "Emzor Pharmaceuticals",
+        "constituents": "Paediatric Antimalarial",
+        "packSize": "1*1"
+    },
+    {
+        "drugUrl": "asset/images/kezitil-tablet.png",
+        "drugName": "Kezitil tablet",
+        "drugDesc": "Cefuroxime Axetil Tablets USP - 500mg",
+        "amount": 450,
+        "soldBy": "Emzor Pharmaceuticals",
+        "constituents": "Cefuroxime",
+        "packSize": "1*10"
+    },
+    {
+        "drugUrl": "asset/images/kezitil-suspension.png",
+        "drugName": "Kezitil Suspension",
+        "drugDesc": "Cefuroxime Axetil USP - 125mg/5ml",
+        "amount": 450,
+        "soldBy": "Emzor Pharmaceuticals",
+        "constituents": "Cefuroxime",
+        "packSize": "1*1"
+    }
+]
