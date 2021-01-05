@@ -1,4 +1,5 @@
 import 'package:dro_test/model/drug_model.dart';
+import 'package:dro_test/reusables/color_codes.dart';
 import 'package:flutter/material.dart';
 
 class DrugDetail extends StatefulWidget {
@@ -98,27 +99,40 @@ class _DrugDetailState extends State<DrugDetail> {
   }
 
   counter() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        new FloatingActionButton(
-          heroTag: "plusBtn",
-          onPressed: add,
-          child: new Icon(
-            Icons.add,
-            color: Colors.black,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            offset: Offset(0.0, 1.0), //(x,y)
+            blurRadius: 5.0,
           ),
-          backgroundColor: Colors.white,
-        ),
-        new Text('$_n', style: new TextStyle(fontSize: 60.0)),
-        new FloatingActionButton(
-          heroTag: "minusBtn",
-          onPressed: minus,
-          child: new Icon(const IconData(0xe15b, fontFamily: 'MaterialIcons'),
-              color: Colors.black),
-          backgroundColor: Colors.white,
-        ),
-      ],
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          new FloatingActionButton(
+            heroTag: "plusBtn",
+            onPressed: add,
+            child: new Icon(
+              Icons.add,
+              color: Colors.black,
+            ),
+            backgroundColor: Colors.white,
+          ),
+          new Text('$_n', style: new TextStyle(fontSize: 60.0)),
+          new FloatingActionButton(
+            heroTag: "minusBtn",
+            onPressed: minus,
+            child: new Icon(const IconData(0xe15b, fontFamily: 'MaterialIcons'),
+                color: Colors.black),
+            backgroundColor: Colors.white,
+          ),
+        ],
+      ),
     );
   }
 
