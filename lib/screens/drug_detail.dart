@@ -1,7 +1,10 @@
+import 'package:dro_test/data/cart.dart';
+import 'package:dro_test/model/cartModel.dart';
 import 'package:dro_test/model/drug_model.dart';
 import 'package:dro_test/reusables/color_codes.dart';
 import 'package:dro_test/reusables/custom_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DrugDetail extends StatefulWidget {
   final DrugModel eachDrug;
@@ -37,7 +40,9 @@ class _DrugDetailState extends State<DrugDetail> {
                         child: Row(
                       children: [
                         Icon(Icons.shopping_basket),
-                        Text("3"),
+                        Consumer<Cart>(
+                            builder: (context, myCart, child) =>
+                                Text(myCart.cartList.length.toString())),
                       ],
                     )),
                   ],
@@ -153,21 +158,30 @@ class _DrugDetailState extends State<DrugDetail> {
         Align(
             alignment: Alignment.bottomCenter,
             child: ButtonBar(alignment: MainAxisAlignment.center, children: [
-              ButtonTheme(
-                minWidth: 200.0,
-                buttonColor: dro_purple,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0)),
-                child: RaisedButton(
-                    onPressed: () => customDialog(context),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(Icons.shopping_basket, color: Colors.white),
-                        Text("Add to bag",
-                            style: TextStyle(color: Colors.white))
-                      ],
-                    )),
+              Consumer<Cart>(
+                builder: (context, myCart, child) => ButtonTheme(
+                  minWidth: 200.0,
+                  buttonColor: dro_purple,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0)),
+                  child: RaisedButton(
+                      onPressed: () {
+                        CartModel model = new CartModel();
+                        model.drugModel = widget.eachDrug;
+                        model.eachAmount = widget.eachDrug.amount;
+                        model.quantity = _n;
+                        model.amount = (model.quantity * model.eachAmount);
+                        myCart.addToCart(model);
+                        customDialog(context);
+                      },
+                      child: Row(
+                        children: [
+                          Icon(Icons.shopping_basket, color: Colors.white),
+                          Text("Add to bag",
+                              style: TextStyle(color: Colors.white))
+                        ],
+                      )),
+                ),
               ),
             ]))
       ]),
