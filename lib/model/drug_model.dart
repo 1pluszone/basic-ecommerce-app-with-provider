@@ -6,6 +6,7 @@ class DrugModel {
   String soldBy;
   String constituents;
   String packSize;
+  String dispensedIn;
 
   DrugModel(
       {this.drugUrl,
@@ -14,7 +15,8 @@ class DrugModel {
       this.amount,
       this.soldBy,
       this.constituents,
-      this.packSize});
+      this.packSize,
+      this.dispensedIn});
 
   DrugModel.fromJson(Map<String, dynamic> json) {
     drugUrl = json['drugUrl'];
@@ -24,6 +26,7 @@ class DrugModel {
     soldBy = json['soldBy'];
     constituents = json['constituents'];
     packSize = json['packSize'];
+    dispensedIn = json['dispensedIn'];
   }
 
   Map<String, dynamic> toJson() {
@@ -35,6 +38,7 @@ class DrugModel {
     data['soldBy'] = this.soldBy;
     data['constituents'] = this.constituents;
     data['packSize'] = this.packSize;
+    data['dispensedIn'] = this.dispensedIn;
     return data;
   }
 }

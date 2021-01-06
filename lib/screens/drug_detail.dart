@@ -70,12 +70,34 @@ class _DrugDetailState extends State<DrugDetail> {
                   Text("PRODUCT DETAILS"),
                   Row(
                     children: [
-                      getRow(),
-                      getRow(),
+                      Row(children: [
+                        Icon(Icons.donut_large),
+                        Column(children: [
+                          Text("PACK SIZE"),
+                          Text(widget.eachDrug.packSize)
+                        ])
+                      ]),
+                      Row(children: [
+                        Icon(Icons.donut_large),
+                        Column(
+                            children: [Text("PRODUCT ID"), Text("PROCEYPLYLE")])
+                      ]),
                     ],
                   ),
-                  getRow(),
-                  getRow(),
+                  Row(children: [
+                    Icon(Icons.donut_large),
+                    Column(children: [
+                      Text("CONSTITUENTS"),
+                      Text(widget.eachDrug.constituents)
+                    ])
+                  ]),
+                  Row(children: [
+                    Icon(Icons.donut_large),
+                    Column(children: [
+                      Text("DISPENSED IN"),
+                      Text(widget.eachDrug.dispensedIn)
+                    ])
+                  ]),
                 ],
               ),
             )
@@ -84,11 +106,20 @@ class _DrugDetailState extends State<DrugDetail> {
         Align(
             alignment: Alignment.bottomCenter,
             child: ButtonBar(alignment: MainAxisAlignment.center, children: [
-              RaisedButton(
-                  onPressed: null,
-                  child: Row(
-                    children: [Icon(Icons.shopping_basket), Text("Add to bag")],
-                  )),
+              ButtonTheme(
+                minWidth: 200.0,
+                buttonColor: dro_purple,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0)),
+                child: RaisedButton(
+                    onPressed: () {},
+                    child: Row(
+                      children: [
+                        Icon(Icons.shopping_basket),
+                        Text("Add to bag")
+                      ],
+                    )),
+              ),
             ]))
       ]),
     );
@@ -114,32 +145,28 @@ class _DrugDetailState extends State<DrugDetail> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          new FloatingActionButton(
-            heroTag: "plusBtn",
+          IconButton(
             onPressed: add,
-            child: new Icon(
+            icon: Icon(
               Icons.add,
               color: Colors.black,
             ),
-            backgroundColor: Colors.white,
           ),
-          new Text('$_n', style: new TextStyle(fontSize: 60.0)),
-          new FloatingActionButton(
-            heroTag: "minusBtn",
+          Text('$_n'),
+          IconButton(
             onPressed: minus,
-            child: new Icon(const IconData(0xe15b, fontFamily: 'MaterialIcons'),
+            icon: Icon(const IconData(0xe15b, fontFamily: 'MaterialIcons'),
                 color: Colors.black),
-            backgroundColor: Colors.white,
           ),
         ],
       ),
     );
   }
 
-  int _n = 0;
+  int _n = 1;
   void minus() {
     setState(() {
-      if (_n != 0) _n--;
+      if (_n != 1) _n--;
     });
   }
 
