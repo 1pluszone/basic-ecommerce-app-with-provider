@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> {
             Column(
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     CircleAvatar(
                         backgroundColor: grey, child: Icon(Icons.filter_list)),
