@@ -7,6 +7,12 @@ class Cart extends ChangeNotifier {
 
   addToCart(CartModel model) {
     cartList.add(model);
+    //update total amount
+    int temp = 0;
+    for (CartModel cart in cartList) {
+      temp += cart.amount;
+    }
+    totalAmount = temp;
     notifyListeners();
   }
 

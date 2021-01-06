@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int title = 25;
+  int totalItems = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -22,59 +22,73 @@ class _HomePageState extends State<HomePage> {
       create: (_) => Cart(),
       child: MaterialApp(
         home: Scaffold(
-          appBar: AppBar(
-            // backgroundColor: Colors.white,
-            elevation: 0,
-            title: Center(child: Text("$title item(s)")),
-          ),
           body: Stack(
             children: [
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      CircleAvatar(
-                          backgroundColor: grey,
-                          child: Icon(Icons.filter_list)),
-                      CircleAvatar(
-                          backgroundColor: grey,
-                          child: Icon(Icons.airline_seat_legroom_normal)),
-                      CircleAvatar(
-                          backgroundColor: grey, child: Icon(Icons.search)),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                    ],
-                  ),
-                  FutureBuilder<List<DrugModel>>(
-                    future: getData(context),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        return Text("An error occured");
-                      } else if (snapshot.hasData) {
-                        return Expanded(
-                          child: GridView.builder(
-                            itemCount: snapshot.data.length,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2),
-                            itemBuilder: (BuildContext context, int index) {
-                              return EachCart(
-                                  eachDrug: snapshot.data[index], index: index);
-                              // return Text("${snapshot.data.length}");
-                            },
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8, 30, 8, 0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.arrow_back),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                        Expanded(
+                          child: Text(
+                            "$totalItems item(s)",
+                            textAlign: TextAlign.center,
                           ),
-                        );
-                      } else {
-                        //loading
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    },
-                  ),
-                ],
+                        )
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        CircleAvatar(
+                            backgroundColor: grey_color,
+                            child: Icon(Icons.filter_list)),
+                        CircleAvatar(
+                            backgroundColor: grey_color,
+                            child: Icon(Icons.airline_seat_legroom_normal)),
+                        CircleAvatar(
+                            backgroundColor: grey_color,
+                            child: Icon(Icons.search)),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                      ],
+                    ),
+                    FutureBuilder<List<DrugModel>>(
+                      future: getData(context),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return Text("An error occured");
+                        } else if (snapshot.hasData) {
+                          totalItems = snapshot.data.length;
+                          return Expanded(
+                            child: GridView.builder(
+                              itemCount: totalItems,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2),
+                              itemBuilder: (BuildContext context, int index) {
+                                return EachCart(
+                                    eachDrug: snapshot.data[index],
+                                    index: index);
+                              },
+                            ),
+                          );
+                        } else {
+                          //loading
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
               ),
               DraggableScrollableSheet(
                   //expand: false,

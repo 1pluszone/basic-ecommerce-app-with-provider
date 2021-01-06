@@ -24,8 +24,9 @@ class _DrugDetailState extends State<DrugDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(children: [
-        Container(
+      body: Consumer<Cart>(
+        builder: (context, myCart, child) => Stack(children: [
+          Container(
             margin: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
             child: Column(
               children: [
@@ -40,9 +41,7 @@ class _DrugDetailState extends State<DrugDetail> {
                         child: Row(
                       children: [
                         Icon(Icons.shopping_basket),
-                        Consumer<Cart>(
-                            builder: (context, myCart, child) =>
-                                Text(myCart.cartList.length.toString())),
+                        Text(myCart.cartList.length.toString()),
                       ],
                     )),
                   ],
@@ -154,12 +153,12 @@ class _DrugDetailState extends State<DrugDetail> {
                   ),
                 )
               ],
-            )),
-        Align(
-            alignment: Alignment.bottomCenter,
-            child: ButtonBar(alignment: MainAxisAlignment.center, children: [
-              Consumer<Cart>(
-                builder: (context, myCart, child) => ButtonTheme(
+            ),
+          ),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: ButtonBar(alignment: MainAxisAlignment.center, children: [
+                ButtonTheme(
                   minWidth: 200.0,
                   buttonColor: dro_purple,
                   shape: RoundedRectangleBorder(
@@ -182,9 +181,9 @@ class _DrugDetailState extends State<DrugDetail> {
                         ],
                       )),
                 ),
-              ),
-            ]))
-      ]),
+              ]))
+        ]),
+      ),
     );
   }
 

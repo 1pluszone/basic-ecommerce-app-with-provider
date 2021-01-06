@@ -28,43 +28,46 @@ class _DraggableCartPageState extends State<DraggableCartPage> {
             ),
           ],
         ),
-        child: Column(
-          children: [
-            Center(
-              child: Divider(
-                //height: 50,
-                thickness: 5,
-                color: Colors.white,
-                indent: 160,
-                endIndent: 160,
+        child: Consumer<Cart>(
+          builder: (context, myCart, child) => Column(
+            children: [
+              Center(
+                child: Divider(
+                  //height: 50,
+                  thickness: 5,
+                  color: Colors.white,
+                  indent: 150,
+                  endIndent: 150,
+                ),
               ),
-            ),
-            Row(
-              children: [
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      children: [Icon(Icons.shopping_basket), Text("Bag")],
-                    )),
-                Expanded(
-                  child: Align(
-                      alignment: Alignment.centerRight,
-                      child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          child: Consumer<Cart>(
-                              builder: (context, myCart, child) =>
-                                  Text(myCart.cartList.length.toString())))),
-                )
-              ],
-            ),
-            SizedBox(height: 20),
-            Container(
-              color: Colors.white,
-              child: Text("Tap on an item for add, remove, delete options"),
-            ),
-            SizedBox(height: 12),
-            Consumer<Cart>(
-              builder: (context, myCart, child) => Expanded(
+              Row(
+                children: [
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        children: [
+                          Icon(Icons.shopping_basket, color: Colors.white),
+                          SizedBox(width: 5),
+                          Text("Bag", style: cartpageStyle)
+                        ],
+                      )),
+                  Expanded(
+                    child: Align(
+                        alignment: Alignment.centerRight,
+                        child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            child: Text(myCart.cartList.length.toString()))),
+                  )
+                ],
+              ),
+              SizedBox(height: 20),
+              Container(
+                padding: EdgeInsets.all(10),
+                color: Colors.white,
+                child: Text("Tap on an item for add, remove, delete options"),
+              ),
+              SizedBox(height: 12),
+              Expanded(
                 child: ListView.builder(
                     primary: false,
                     //controller: widget.controller,
@@ -77,40 +80,47 @@ class _DraggableCartPageState extends State<DraggableCartPage> {
                                     myCart.cartList[index].drugModel.drugUrl)),
                             Padding(
                               padding: const EdgeInsets.only(top: 10.0),
-                              child:
-                                  Text("${myCart.cartList[index].quantity}X"),
+                              child: Text("${myCart.cartList[index].quantity}X",
+                                  style: cartpageStyle),
                             )
                           ]),
-                          title:
-                              Text(myCart.cartList[index].drugModel.drugName),
+                          title: Text(myCart.cartList[index].drugModel.drugName,
+                              style: cartpageStyle),
                           subtitle: Text(
-                              myCart.cartList[index].drugModel.dispensedIn),
-                          trailing:
-                              Text(myCart.cartList[index].amount.toString()),
+                              myCart.cartList[index].drugModel.dispensedIn,
+                              style: cartpageStyle),
+                          trailing: Text(
+                              "₦${myCart.cartList[index].amount.toString()}",
+                              style: cartpageStyle),
                         )),
               ),
-            ),
-            Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 12.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [Text("Total"), Spacer(), Text("234,43")],
-                      ),
-                      ButtonTheme(
-                          buttonColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                          child: RaisedButton(
-                            child: Text("Checkout"),
-                            onPressed: () {},
-                          ))
-                    ],
-                  ),
-                )),
-          ],
+              Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 12.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text("Total", style: cartpageStyle),
+                            Spacer(),
+                            Text("₦${myCart.totalAmount}", style: cartpageStyle)
+                          ],
+                        ),
+                        ButtonTheme(
+                            padding: EdgeInsets.symmetric(horizontal: 70),
+                            buttonColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                            child: RaisedButton(
+                              child: Text("Checkout"),
+                              onPressed: () {},
+                            ))
+                      ],
+                    ),
+                  )),
+            ],
+          ),
         ));
   }
 }
