@@ -7,7 +7,15 @@ class Cart extends ChangeNotifier {
 
   addToCart(CartModel model) {
     cartList.add(model);
-    //update total amount
+    updateTotalAmount();
+  }
+
+  removeFromCart(int index) {
+    cartList.removeAt(index);
+    updateTotalAmount();
+  }
+
+  updateTotalAmount() {
     int temp = 0;
     for (CartModel cart in cartList) {
       temp += cart.amount;
@@ -16,8 +24,8 @@ class Cart extends ChangeNotifier {
     notifyListeners();
   }
 
-  removeFromCart(int index) {
-    cartList.removeAt(index);
-    notifyListeners();
+  changeInPrice(int qty, int index) {
+    cartList[index].amount = (qty * cartList[index].eachAmount);
+    updateTotalAmount();
   }
 }

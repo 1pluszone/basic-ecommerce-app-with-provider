@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "drugUrl": "asset/images/paracetamol-drop.png",
         "drugName": "Paracetamol Drops",
         "drugDesc": "Paracetamol - 15ml",
@@ -10,6 +11,7 @@
         "dispensedIn": "Packs"
     },
     {
+        "id": 2,
         "drugUrl": "asset/images/emmox.png",
         "drugName": "Emmox",
         "drugDesc": "Amoxicillin - 500mg",
@@ -21,6 +23,7 @@
 
     },
     {
+        "id": 3,
         "drugUrl": "asset/images/garlic-pack.png",
         "drugName": "Garlic Oil",
         "drugDesc": "Soft Gel - 650mg",
@@ -32,6 +35,7 @@
 
     },
     {
+        "id": 4,
         "drugUrl": "asset/images/lokmal-tablet.png",
         "drugName": "Lokmal Tablet",
         "drugDesc": "20mg Artemether + 120mg Lumefantrine",
@@ -43,6 +47,7 @@
 
     },
     {
+        "id": 5,
         "drugUrl": "asset/images/lokmal-pack.png",
         "drugName": "Lokmal Suspension",
         "drugDesc": "20mg Artemether + 120mg Lumefantrine",
@@ -54,6 +59,7 @@
 
     },
     {
+        "id": 6,
         "drugUrl": "asset/images/kezitil-tablet.png",
         "drugName": "Kezitil tablet",
         "drugDesc": "Cefuroxime Axetil Tablets USP - 500mg",
@@ -65,6 +71,7 @@
 
     },
     {
+        "id": 7,
         "drugUrl": "asset/images/kezitil-suspension.png",
         "drugName": "Kezitil Suspension",
         "drugDesc": "Cefuroxime Axetil USP - 125mg/5ml",

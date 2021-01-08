@@ -6,9 +6,8 @@ import 'package:flutter/material.dart';
 //todo.. create this as a widget in hompage
 class EachCart extends StatelessWidget {
   final DrugModel eachDrug;
-  final int index;
 
-  EachCart({@required this.eachDrug, @required this.index});
+  EachCart({@required this.eachDrug});
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -16,7 +15,6 @@ class EachCart extends StatelessWidget {
       child: InkWell(
         splashColor: Colors.blue.withAlpha(30),
         onTap: () {
-          print('index $index tapped.');
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -31,7 +29,7 @@ class EachCart extends StatelessWidget {
               Center(
                 child: Image.asset(
                   eachDrug.drugUrl,
-                  height: 105,
+                  height: 90,
                 ),
               ),
               Text(

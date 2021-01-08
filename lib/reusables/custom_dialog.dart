@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-customDialog(context) {
+import 'color_codes.dart';
+
+customDialog(BuildContext context, String drugName, bool alreadyAdded) {
   int popCount = 0;
   showDialog(
       context: context,
@@ -13,25 +15,38 @@ customDialog(context) {
               alignment: Alignment.center,
               children: [
                 Container(
-                    width: double.infinity,
+                    width: 300,
                     height: 215,
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                    padding: EdgeInsets.fromLTRB(10, 40, 10, 20),
+                    padding: EdgeInsets.fromLTRB(10, 40, 10, 0),
                     child: Column(
                       children: [
                         Text("Successful"),
                         SizedBox(height: 10),
-                        Text("Garlic Oil has been added to your bag"),
+                        (!alreadyAdded)
+                            ? (Text("$drugName is already in your bag"))
+                            : Text("$drugName has been added to your bag"),
                         SizedBox(height: 15),
-                        RaisedButton(
-                          onPressed: () {},
-                          child: Text("View Bag"),
+                        ButtonTheme(
+                          minWidth: double.infinity,
+                          buttonColor: dialogColor,
+                          child: RaisedButton(
+                            onPressed: () {},
+                            child: Text("View Bag",
+                                style: TextStyle(color: Colors.white)),
+                          ),
                         ),
-                        RaisedButton(
-                          onPressed: () => Navigator.of(context)
-                              .popUntil((_) => popCount++ >= 2),
-                          child: Text("Done"),
+                        ButtonTheme(
+                          minWidth: double.infinity,
+                          buttonColor: dialogColor,
+                          //height: 100.0,
+                          child: RaisedButton(
+                            onPressed: () => Navigator.of(context)
+                                .popUntil((_) => popCount++ >= 2),
+                            child: Text("Done",
+                                style: TextStyle(color: Colors.white)),
+                          ),
                         )
                       ],
                     )),
@@ -41,7 +56,12 @@ customDialog(context) {
                       backgroundColor: Colors.white,
                       radius: 44,
                       child: CircleAvatar(
-                          radius: 40, child: Icon(Icons.check, size: 50)),
+                          backgroundColor: dialogColor,
+                          radius: 40,
+                          child: Icon(
+                              (!alreadyAdded) ? Icons.check : Icons.warning,
+                              size: 50,
+                              color: Colors.white)),
                     ))
               ],
             ));

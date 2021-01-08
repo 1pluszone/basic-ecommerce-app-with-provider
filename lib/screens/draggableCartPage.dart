@@ -1,4 +1,5 @@
 import 'package:dro_test/data/cart.dart';
+import 'package:dro_test/model/cartModel.dart';
 import 'package:dro_test/reusables/color_codes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,7 @@ class _DraggableCartPageState extends State<DraggableCartPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: MediaQuery.of(context).size.height,
+        height: (95 * MediaQuery.of(context).size.height / 100),
         margin: const EdgeInsets.only(top: 6.0),
         padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
         decoration: BoxDecoration(
@@ -69,10 +70,14 @@ class _DraggableCartPageState extends State<DraggableCartPage> {
               SizedBox(height: 12),
               Expanded(
                 child: ListView.builder(
-                    primary: false,
-                    //controller: widget.controller,
-                    itemCount: myCart.cartList.length,
-                    itemBuilder: (context, index) => ListTile(
+                  primary: false,
+                  //controller: widget.controller,
+                  itemCount: myCart.cartList.length,
+                  itemBuilder: (context, index) => Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () => detectGesture(myCart.cartList, index),
+                        child: ListTile(
                           leading: Wrap(spacing: 10, children: [
                             CircleAvatar(
                                 backgroundColor: Colors.white,
@@ -92,7 +97,42 @@ class _DraggableCartPageState extends State<DraggableCartPage> {
                           trailing: Text(
                               "₦${myCart.cartList[index].amount.toString()}",
                               style: cartpageStyle),
-                        )),
+                        ),
+                      ),
+                      (!myCart.cartList[index].expand)
+                          ? SizedBox()
+                          : Row(
+                              children: [
+                                IconButton(
+                                  icon: Icon(Icons.delete),
+                                  onPressed: () => myCart.removeFromCart(index),
+                                ),
+                                Spacer(),
+                                IconButton(
+                                  onPressed: () {
+                                    if (myCart.cartList[index].quantity != 1)
+                                      myCart.cartList[index].quantity--;
+                                    myCart.changeInPrice(
+                                        myCart.cartList[index].quantity, index);
+                                  },
+                                  icon: Icon(Icons.remove),
+                                ),
+                                Text('${myCart.cartList[index].quantity}'),
+                                IconButton(
+                                  onPressed: () {
+                                    myCart.cartList[index].quantity++;
+                                    myCart.changeInPrice(
+                                        myCart.cartList[index].quantity, index);
+                                  },
+                                  icon: Icon(
+                                    Icons.add,
+                                  ),
+                                ),
+                              ],
+                            )
+                    ],
+                  ),
+                ),
               ),
               Align(
                   alignment: Alignment.bottomCenter,
@@ -122,5 +162,11 @@ class _DraggableCartPageState extends State<DraggableCartPage> {
             ],
           ),
         ));
+  }
+
+  detectGesture(List<CartModel> myCart, int index) {
+    setState(() {
+      myCart[index].expand = !myCart[index].expand;
+    });
   }
 }

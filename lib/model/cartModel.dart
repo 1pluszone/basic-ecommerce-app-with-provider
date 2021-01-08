@@ -5,6 +5,7 @@ class CartModel {
   int eachAmount;
   int amount;
   int quantity;
+  bool expand = false;
 
   // CartModel({this.drugModel, this.eachAmount, this.amount, this.quantity});
 }

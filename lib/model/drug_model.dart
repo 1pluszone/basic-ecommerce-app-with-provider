@@ -1,4 +1,5 @@
 class DrugModel {
+  int id;
   String drugUrl;
   String drugName;
   String drugDesc;
@@ -9,7 +10,8 @@ class DrugModel {
   String dispensedIn;
 
   DrugModel(
-      {this.drugUrl,
+      {this.id,
+      this.drugUrl,
       this.drugName,
       this.drugDesc,
       this.amount,
@@ -19,6 +21,7 @@ class DrugModel {
       this.dispensedIn});
 
   DrugModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     drugUrl = json['drugUrl'];
     drugName = json['drugName'];
     drugDesc = json['drugDesc'];
@@ -31,6 +34,7 @@ class DrugModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
     data['drugUrl'] = this.drugUrl;
     data['drugName'] = this.drugName;
     data['drugDesc'] = this.drugDesc;
