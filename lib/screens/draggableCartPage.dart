@@ -15,7 +15,7 @@ class _DraggableCartPageState extends State<DraggableCartPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: (95 * MediaQuery.of(context).size.height / 100),
+        height: (97 * MediaQuery.of(context).size.height / 100),
         margin: const EdgeInsets.only(top: 6.0),
         padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
         decoration: BoxDecoration(
@@ -47,7 +47,7 @@ class _DraggableCartPageState extends State<DraggableCartPage> {
                       alignment: Alignment.centerLeft,
                       child: Row(
                         children: [
-                          Icon(Icons.shopping_basket, color: Colors.white),
+                          shopBagIcon,
                           SizedBox(width: 5),
                           Text("Bag", style: cartpageStyle)
                         ],
@@ -64,8 +64,15 @@ class _DraggableCartPageState extends State<DraggableCartPage> {
               SizedBox(height: 20),
               Container(
                 padding: EdgeInsets.all(10),
-                color: Colors.white,
-                child: Text("Tap on an item for add, remove, delete options"),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(30),
+                  ),
+                  color: Colors.white,
+                ),
+                child: Text("Tap on an item for add, remove, delete options",
+                    style: TextStyle(fontWeight: FontWeight.bold)),
               ),
               SizedBox(height: 12),
               Expanded(
@@ -73,65 +80,90 @@ class _DraggableCartPageState extends State<DraggableCartPage> {
                   primary: false,
                   //controller: widget.controller,
                   itemCount: myCart.cartList.length,
-                  itemBuilder: (context, index) => Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () => detectGesture(myCart.cartList, index),
-                        child: ListTile(
-                          leading: Wrap(spacing: 10, children: [
-                            CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Image.asset(
-                                    myCart.cartList[index].drugModel.drugUrl)),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: Text("${myCart.cartList[index].quantity}X",
-                                  style: cartpageStyle),
-                            )
-                          ]),
-                          title: Text(myCart.cartList[index].drugModel.drugName,
-                              style: cartpageStyle),
-                          subtitle: Text(
-                              myCart.cartList[index].drugModel.dispensedIn,
-                              style: cartpageStyle),
-                          trailing: Text(
-                              "₦${myCart.cartList[index].amount.toString()}",
-                              style: cartpageStyle),
+                  itemBuilder: (context, index) => (myCart.cartList.isEmpty)
+                      ? Center(
+                          child: Text("Your cart is empty"),
+                        )
+                      : Column(
+                          children: [
+                            InkWell(
+                              splashColor: Colors.blue.withAlpha(30),
+                              onTap: () => detectTap(myCart.cartList, index),
+                              child: ListTile(
+                                leading: Wrap(spacing: 10, children: [
+                                  CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      child: Image.asset(myCart
+                                          .cartList[index].drugModel.drugUrl)),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10.0),
+                                    child: Text(
+                                        "${myCart.cartList[index].quantity}X",
+                                        style: cartpageStyle),
+                                  )
+                                ]),
+                                title: Text(
+                                    myCart.cartList[index].drugModel.drugName,
+                                    style: cartpageStyle),
+                                subtitle: Text(
+                                    myCart
+                                        .cartList[index].drugModel.dispensedIn,
+                                    style: cartpageStyle),
+                                trailing: Text(
+                                    "₦${myCart.cartList[index].amount.toString()}",
+                                    style: cartpageStyle),
+                              ),
+                            ),
+                            (!myCart.cartList[index].expand)
+                                ? SizedBox()
+                                : Row(
+                                    children: [
+                                      IconButton(
+                                        icon: Icon(Icons.delete,
+                                            color: Colors.white, size: 30),
+                                        onPressed: () =>
+                                            myCart.removeFromCart(index),
+                                      ),
+                                      Spacer(),
+                                      CircleAvatar(
+                                        backgroundColor: Colors.white,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            if (myCart
+                                                    .cartList[index].quantity !=
+                                                1)
+                                              myCart.cartList[index].quantity--;
+                                            myCart.changeInPrice(
+                                                myCart.cartList[index].quantity,
+                                                index);
+                                          },
+                                          icon: Icon(Icons.remove),
+                                        ),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Text('${myCart.cartList[index].quantity}',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20)),
+                                      SizedBox(width: 10),
+                                      CircleAvatar(
+                                        backgroundColor: Colors.white,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            myCart.cartList[index].quantity++;
+                                            myCart.changeInPrice(
+                                                myCart.cartList[index].quantity,
+                                                index);
+                                          },
+                                          icon: Icon(
+                                            Icons.add,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                          ],
                         ),
-                      ),
-                      (!myCart.cartList[index].expand)
-                          ? SizedBox()
-                          : Row(
-                              children: [
-                                IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: () => myCart.removeFromCart(index),
-                                ),
-                                Spacer(),
-                                IconButton(
-                                  onPressed: () {
-                                    if (myCart.cartList[index].quantity != 1)
-                                      myCart.cartList[index].quantity--;
-                                    myCart.changeInPrice(
-                                        myCart.cartList[index].quantity, index);
-                                  },
-                                  icon: Icon(Icons.remove),
-                                ),
-                                Text('${myCart.cartList[index].quantity}'),
-                                IconButton(
-                                  onPressed: () {
-                                    myCart.cartList[index].quantity++;
-                                    myCart.changeInPrice(
-                                        myCart.cartList[index].quantity, index);
-                                  },
-                                  icon: Icon(
-                                    Icons.add,
-                                  ),
-                                ),
-                              ],
-                            )
-                    ],
-                  ),
                 ),
               ),
               Align(
@@ -144,7 +176,9 @@ class _DraggableCartPageState extends State<DraggableCartPage> {
                           children: [
                             Text("Total", style: cartpageStyle),
                             Spacer(),
-                            Text("₦${myCart.totalAmount}", style: cartpageStyle)
+                            Text("₦${myCart.totalAmount}",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20))
                           ],
                         ),
                         ButtonTheme(
@@ -164,7 +198,7 @@ class _DraggableCartPageState extends State<DraggableCartPage> {
         ));
   }
 
-  detectGesture(List<CartModel> myCart, int index) {
+  detectTap(List<CartModel> myCart, int index) {
     setState(() {
       myCart[index].expand = !myCart[index].expand;
     });

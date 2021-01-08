@@ -16,21 +16,26 @@ customDialog(BuildContext context, String drugName, bool alreadyAdded) {
               children: [
                 Container(
                     width: 300,
-                    height: 215,
+                    height: 230,
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(10)),
                     padding: EdgeInsets.fromLTRB(10, 40, 10, 0),
                     child: Column(
                       children: [
-                        Text("Successful"),
+                        Text((!alreadyAdded) ? "Successful" : "Unsuccessful",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20)),
                         SizedBox(height: 10),
-                        (!alreadyAdded)
-                            ? (Text("$drugName is already in your bag"))
-                            : Text("$drugName has been added to your bag"),
+                        Text(
+                            (!alreadyAdded)
+                                ? "$drugName has been added to your bag"
+                                : "$drugName is already in your bag",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15)),
                         SizedBox(height: 15),
                         ButtonTheme(
                           minWidth: double.infinity,
-                          buttonColor: dialogColor,
+                          buttonColor: dro_turquoise,
                           child: RaisedButton(
                             onPressed: () {},
                             child: Text("View Bag",
@@ -39,12 +44,12 @@ customDialog(BuildContext context, String drugName, bool alreadyAdded) {
                         ),
                         ButtonTheme(
                           minWidth: double.infinity,
-                          buttonColor: dialogColor,
+                          buttonColor: dro_turquoise,
                           //height: 100.0,
                           child: RaisedButton(
                             onPressed: () => Navigator.of(context)
                                 .popUntil((_) => popCount++ >= 2),
-                            child: Text("Done",
+                            child: Text((!alreadyAdded) ? "Done" : "Cancel",
                                 style: TextStyle(color: Colors.white)),
                           ),
                         )
@@ -56,7 +61,9 @@ customDialog(BuildContext context, String drugName, bool alreadyAdded) {
                       backgroundColor: Colors.white,
                       radius: 44,
                       child: CircleAvatar(
-                          backgroundColor: dialogColor,
+                          backgroundColor: (!alreadyAdded)
+                              ? dro_turquoise
+                              : Colors.redAccent,
                           radius: 40,
                           child: Icon(
                               (!alreadyAdded) ? Icons.check : Icons.warning,

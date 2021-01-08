@@ -4,6 +4,7 @@ import 'package:dro_test/model/drug_model.dart';
 import 'package:dro_test/reusables/color_codes.dart';
 import 'package:dro_test/reusables/custom_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class DrugDetail extends StatefulWidget {
@@ -48,7 +49,7 @@ class _DrugDetailState extends State<DrugDetail> {
                             color: dro_purple),
                         child: Row(
                           children: [
-                            Icon(Icons.shopping_basket, color: Colors.white),
+                            shopBagIcon,
                             SizedBox(width: 5),
                             Text(myCart.cartList.length.toString(),
                                 style: TextStyle(color: Colors.white)),
@@ -106,7 +107,7 @@ class _DrugDetailState extends State<DrugDetail> {
                                     children: [
                                       WidgetSpan(
                                         child: Transform.translate(
-                                          offset: const Offset(-2, -6),
+                                          offset: const Offset(-2, -7),
                                           child: Text(
                                             '₦',
                                             style: boldn20Style,
@@ -126,31 +127,33 @@ class _DrugDetailState extends State<DrugDetail> {
                         Text(
                           "PRODUCT DETAILS",
                           textAlign: TextAlign.left,
+                          style: TextStyle(color: Colors.blueGrey),
                         ),
                         SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             descSection("PACK SIZE", widget.eachDrug.packSize,
-                                Icon(Icons.donut_large, color: dro_purple)),
-                            Expanded(
-                              child: descSection("PRODUCT ID", "PROCEYPLYLE",
-                                  Icon(Icons.donut_large, color: dro_purple, true)),
+                                packSizeIcon),
+                            SizedBox(
+                              width: 40,
                             ),
+                            descSection(
+                                "PRODUCT ID",
+                                widget.eachDrug.productId, //TODO
+                                productIdIcon),
                           ],
                         ),
                         SizedBox(
                           height: 20,
                         ),
-                        descSection(
-                            "CONSTITUENTS",
-                            widget.eachDrug.constituents,
-                            Icon(Icons.donut_large, color: dro_purple)),
+                        descSection("CONSTITUENTS",
+                            widget.eachDrug.constituents, constituentsIcon),
                         SizedBox(
                           height: 20,
                         ),
                         descSection("DISPENSED IN", widget.eachDrug.dispensedIn,
-                            Icon(Icons.donut_large, color: dro_purple)),
+                            dispensedIcon),
                       ],
                     ),
                   )
@@ -169,7 +172,12 @@ class _DrugDetailState extends State<DrugDetail> {
                   child: RaisedButton(
                       onPressed: () {
                         bool alreadyAdded = false;
-                        if (myCart.cartList.contains(widget.eachDrug)) {
+                        List i = myCart.cartList
+                            .where((element) =>
+                                element.drugModel.id == widget.eachDrug.id)
+                            .toList();
+
+                        if (i.isNotEmpty) {
                           alreadyAdded = true;
                         } else {
                           CartModel model = new CartModel();
@@ -184,7 +192,8 @@ class _DrugDetailState extends State<DrugDetail> {
                       },
                       child: Row(
                         children: [
-                          Icon(Icons.shopping_basket, color: Colors.white),
+                          shopBagPlusIcon,
+                          SizedBox(width: 10),
                           Text("Add to bag",
                               style: TextStyle(color: Colors.white))
                         ],
@@ -223,13 +232,21 @@ class _DrugDetailState extends State<DrugDetail> {
     );
   }
 
-  Row descSection(String title, String subTitle, Icon iconName, [bool center=false]) {
+  Row descSection(
+    String title,
+    String subTitle,
+    SvgPicture icon,
+  ) {
     return Row(children: [
-      iconName,
+      icon,
       SizedBox(
         width: 10,
       ),
-      Column(children: [Text(title), Text(subTitle)])
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(title, style: TextStyle(color: desc_color)),
+        Text(subTitle,
+            style: TextStyle(fontWeight: FontWeight.bold, color: desc_color))
+      ])
     ]);
   }
 

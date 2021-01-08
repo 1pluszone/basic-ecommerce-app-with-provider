@@ -8,7 +8,8 @@
         "soldBy": "Emzor Pharmaceuticals",
         "constituents": "pain relief",
         "packSize": "1*1",
-        "dispensedIn": "Packs"
+        "dispensedIn": "Packs",
+        "productId": "PARAKELD"
     },
     {
         "id": 2,
@@ -19,7 +20,9 @@
         "soldBy": "Emzor Pharmaceuticals",
         "constituents": "Amoxicillin",
         "packSize": "10*10",
-        "dispensedIn": "Packs"
+        "dispensedIn": "Packs",
+        "productId": "AMOXICILINLI"
+
 
     },
     {
@@ -31,7 +34,8 @@
         "soldBy": "Emzor Pharmaceuticals",
         "constituents": "Garlic Oil",
         "packSize": "1*1",
-        "dispensedIn": "Packs"
+        "dispensedIn": "Packs",
+        "productId": "PROCEYPLYLE"
 
     },
     {
@@ -43,7 +47,8 @@
         "soldBy": "Emzor Pharmaceuticals",
         "constituents": "Anti - Malarial",
         "packSize": "4*6",
-        "dispensedIn": "Tablets"
+        "dispensedIn": "Tablets",
+        "productId": "CHLOROQUINEI"
 
     },
     {
@@ -55,7 +60,8 @@
         "soldBy": "Emzor Pharmaceuticals",
         "constituents": "Paediatric Antimalarial",
         "packSize": "1*1",
-        "dispensedIn": "Packs"
+        "dispensedIn": "Packs",
+        "productId": "CHLOROQUINEI"
 
     },
     {
@@ -67,7 +73,8 @@
         "soldBy": "Emzor Pharmaceuticals",
         "constituents": "Cefuroxime",
         "packSize": "1*10",
-        "dispensedIn": "Tablets"
+        "dispensedIn": "Tablets",
+        "productId": "CEFUROMINE"
 
     },
     {
@@ -79,7 +86,8 @@
         "soldBy": "Emzor Pharmaceuticals",
         "constituents": "Cefuroxime",
         "packSize": "1*1",
-        "dispensedIn": "Packs"
+        "dispensedIn": "Packs",
+        "productId": "CEFUXOMINIE"
 
     }
 ]
