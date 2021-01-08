@@ -3,6 +3,7 @@ import 'package:dro_test/model/cartModel.dart';
 import 'package:dro_test/model/drug_model.dart';
 import 'package:dro_test/reusables/color_codes.dart';
 import 'package:dro_test/reusables/custom_dialog.dart';
+import 'package:dro_test/screens/cartPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -39,21 +40,27 @@ class _DrugDetailState extends State<DrugDetail> {
                         onPressed: () => Navigator.pop(context),
                       ),
                       Spacer(),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            color: dro_purple),
-                        child: Row(
-                          children: [
-                            shopBagIcon,
-                            SizedBox(width: 5),
-                            Text(myCart.cartList.length.toString(),
-                                style: TextStyle(color: Colors.white)),
-                          ],
+                      InkWell(
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) => CartPage())),
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                              color: dro_purple),
+                          child: Row(
+                            children: [
+                              shopBagIcon,
+                              SizedBox(width: 5),
+                              Text(myCart.cartList.length.toString(),
+                                  style: TextStyle(color: Colors.white)),
+                            ],
+                          ),
                         ),
                       ),
                     ],
